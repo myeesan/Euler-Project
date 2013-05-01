@@ -1,7 +1,7 @@
 import scala.annotation.tailrec
 
 // http://euler.synap.co.kr/prob_detail.php?id=3
-object Problem_03 {
+object Problem_03 extends App{
 
   def largestPrimeFactor(x: Long): Long = {
     @tailrec
@@ -11,6 +11,7 @@ object Problem_03 {
       else nextPrime(x, y + 1)
     }
     nextPrime(x, 2)
-  }                                               //> largestPrimeFactor: (x: Long)Long
-  largestPrimeFactor(600851475143L)               //> res0: Long = 6857
+  }
+  
+  println(largestPrimeFactor(600851475143L))
 }
