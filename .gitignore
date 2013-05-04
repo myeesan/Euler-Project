@@ -12,5 +12,5 @@ project/plugins/project/
 .scala_dependencies
 .cache
 # Myeesan specific
-bin/*
+bin/
 .worksheet/*
