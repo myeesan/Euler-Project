@@ -1,0 +1,3 @@
+object exer_2 {
+
+}
