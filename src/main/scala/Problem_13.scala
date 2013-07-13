@@ -3,7 +3,10 @@ import scala.annotation.tailrec
 object Problem_13 extends App {
 
   object Raw {
-    def raw = """
+    
+    def rows = rawStr.split("\n").map(_.trim).filter(_.length == 50).toList
+    
+    private def rawStr = """
 	37107287533902102798797998220837590246510135740250
 	46376937677490009712648124896970078050417018260538
 	74324986199524741059474233309513058123726617309629
@@ -138,9 +141,7 @@ object Problem_13 extends App {
     } else acc.reverse
   }
 
-  val rows = Raw.raw.split("\n").map(_.trim).filter(_.length == 50).toList
-
-  val cols = slice(rows)
+  val cols = slice(Raw.rows)
 
   val numsGrid = cols.map(_.toCharArray.map(_.toString.toInt).toList)
 
