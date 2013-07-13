@@ -3,9 +3,9 @@ import scala.annotation.tailrec
 object Problem_13 extends App {
 
   object Raw {
-    
+
     def rows = rawStr.split("\n").map(_.trim).filter(_.length == 50).toList
-    
+
     private def rawStr = """
 	37107287533902102798797998220837590246510135740250
 	46376937677490009712648124896970078050417018260538
@@ -109,24 +109,28 @@ object Problem_13 extends App {
 	53503534226472524250874054075591789781264330331690
 	"""
   }
-  
-  // 123: Int -> List(1, 2, 3)
-  
-  @tailrec def intToDigit(n: Int, l: List[Int] = Nil): List[Int] = {
-    if (n < 10) n :: l
+
+  /**
+   * 123: Int -> List(1, 2, 3)
+   *
+   * @param digit : ex 10 => 10진수 , 5 => 5진수
+   */
+  @tailrec def intToDigit(n: Int, l: List[Int] = Nil)(implicit digit: Int = 10): List[Int] = {
+    if (n < digit) n :: l
     else {
-      intToDigit(n / 10, (n % 10) :: l)
+      intToDigit(n / digit, (n % digit) :: l)
     }
   }
 
-  @tailrec def add(l: List[Int], given: Int, out: List[Int] = Nil): List[Int] = {
+  @tailrec def add(l: List[Int], given: Int, acc: List[Int] = Nil): List[Int] = {
     l match {
-      case Nil => intToDigit(given) ++ out
+      case Nil => intToDigit(given) ++ acc
       case _ =>
+        // similar 'head and tail recurse'
         val sum = l.last + given
         val rest = sum % 10
         val forward = sum / 10
-        add(l.init, forward, rest :: out)
+        add(l.init, forward, rest :: acc)
     }
   }
 
@@ -143,7 +147,7 @@ object Problem_13 extends App {
 
   val cols = slice(Raw.rows)
 
-  val numsGrid = cols.map(_.toCharArray.map(_.toString.toInt).toList)
+  val numsGrid = cols.map(_.toCharArray.map(_.asDigit)) // "12345" => Array(1,2,3,4,5)
 
   val colSum = numsGrid.map(_.sum)
 
