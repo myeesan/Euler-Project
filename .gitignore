@@ -8,10 +8,25 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+
+bin/*
+
 # Scala-IDE specific
 .scala_dependencies
 .cache
 .sc
-# Myeesan specific
-bin/
-.worksheet/*
+.cache
+.classpath
+.history
+.project
+.settings/
+.worksheet/
+ 
+target/
+lib_managed/
+
+project/boot/
+project/build/target/
+project/plugins/target/
+project/plugins/lib_managed/
+project/plugins/src_managed/
