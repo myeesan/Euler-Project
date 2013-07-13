@@ -1,7 +1,7 @@
 import scala.annotation.tailrec
 
 object Problem_13 extends App {
-  
+
   object Raw {
     def raw = """
 	37107287533902102798797998220837590246510135740250
@@ -106,18 +106,19 @@ object Problem_13 extends App {
 	53503534226472524250874054075591789781264330331690
 	"""
   }
+  
+  // 123: Int -> List(1, 2, 3)
+  
+  @tailrec def intToDigit(n: Int, l: List[Int] = Nil): List[Int] = {
+    if (n < 10) n :: l
+    else {
+      intToDigit(n / 10, (n % 10) :: l)
+    }
+  }
 
   @tailrec def add(l: List[Int], given: Int, out: List[Int] = Nil): List[Int] = {
-    // 123 -> List('1', '2', '3')
-    @tailrec def intToChars(n: Int, l: List[Int] = Nil): List[Int] = {
-      if (n < 10) n :: l
-      else {
-        intToChars(n / 10, (n % 10) :: l)
-      }
-    }
-    
     l match {
-      case Nil => intToChars(given) ++ out
+      case Nil => intToDigit(given) ++ out
       case _ =>
         val sum = l.last + given
         val rest = sum % 10
@@ -126,7 +127,7 @@ object Problem_13 extends App {
     }
   }
 
-  @tailrec def slice(rows: List[String], acc: List[String]): List[String] = {
+  @tailrec def slice(rows: List[String], acc: List[String] = Nil): List[String] = {
     if (rows(0).length != 0) {
       val tuples = for (row <- rows) yield (row.head, row.tail)
       val heads = tuples.map { case (a: Char, b: String) => a }.mkString
@@ -138,15 +139,15 @@ object Problem_13 extends App {
   }
 
   val rows = Raw.raw.split("\n").map(_.trim).filter(_.length == 50).toList
-  
-  val cols = slice(rows, Nil)
-  
+
+  val cols = slice(rows)
+
   val numsGrid = cols.map(_.toCharArray.map(_.toString.toInt).toList)
-  
+
   val colSum = numsGrid.map(_.sum)
-  
+
   val result = add(colSum, 0)
 
   println(result.take(10).mkString)
-  
+
 }
