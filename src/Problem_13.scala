@@ -108,7 +108,6 @@ object Problem_13 extends App {
   }
 
   @tailrec def add(l: List[Int], given: Int, out: List[Int] = Nil): List[Int] = {
-	
     // 123 -> List('1', '2', '3')
     @tailrec def intToChars(n: Int, l: List[Int] = Nil): List[Int] = {
       if (n < 10) n :: l
@@ -116,7 +115,7 @@ object Problem_13 extends App {
         intToChars(n / 10, (n % 10) :: l)
       }
     }
-
+    
     l match {
       case Nil => intToChars(given) ++ out
       case _ =>
@@ -138,8 +137,6 @@ object Problem_13 extends App {
     } else acc.reverse
   }
 
-  def charToInt(c: Char) = c.toString.toInt
-
   val rows = Raw.raw.split("\n").map(_.trim).filter(_.length == 50).toList
   
   val cols = slice(rows, Nil)
@@ -151,6 +148,5 @@ object Problem_13 extends App {
   val result = add(colSum, 0)
 
   println(result.take(10).mkString)
-
   
 }
