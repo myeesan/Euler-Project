@@ -10,7 +10,7 @@ object Problem_14 extends App {
     else calc(num * 3 + 1, acc + 1)
   }
   val indexedValues = nums.map(calc(_)).zipWithIndex
-
   println(indexedValues.max._2 + 1)
-
+  val maxNum = nums.maxBy(calc(_))
+  println(maxNum)
 }
